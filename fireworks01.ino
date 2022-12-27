@@ -12,6 +12,8 @@ float sparkPos[NUM_SPARKS];
 float sparkVel[NUM_SPARKS];
 float sparkCol[NUM_SPARKS];
 
+#define GLOBAL_DELAY 5
+
 // For mirroring strips, all the "special" stuff happens just in setup.  We
 // just addLeds multiple times, once for each strip
 void setup()
@@ -53,7 +55,7 @@ void flare()
         // brightness *= .997;
         // Serial.print(int(flarePos)); Serial.print("\n");
 
-        delay(10);
+        delay(GLOBAL_DELAY);
     }
     // Serial.print("flare end\n");
 }
@@ -93,7 +95,7 @@ void explode02()
             leds[int(sparkPos[i])] = CHSV(hue, 255, 255);
         }
         FastLED.show();
-        FastLED.delay(10);
+        FastLED.delay(GLOBAL_DELAY);
     }
 }
 
