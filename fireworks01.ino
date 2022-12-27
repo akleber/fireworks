@@ -1,12 +1,17 @@
-// ArrayOfLedArrays - see https://github.com/FastLED/FastLED/wiki/Multiple-Controller-Examples for more info on
-// using multiple controllers.  In this example, we're going to set up three NEOPIXEL strips on three
-// different pins, each strip getting its own CRGB array to be played with, only this time they're going
-// to be all parts of an array of arrays.
+
+#define FASTLED_ESP8266_NODEMCU_PIN_ORDER
 
 #include <FastLED.h>
 
-
 #define NUM_LEDS 66
+
+#define LED_PIN1 4
+#define LED_TYPE WS2812B
+#define COLOR_ORDER GRB  
+// #define LED_PIN1 10
+// #define LED_TYPE NEOPIXEL
+// #define COLOR_ORDER GRB  
+
 CRGB leds[NUM_LEDS];
 
 #define NUM_SPARKS 25 // max number (could be NUM_LEDS / 2);
@@ -14,11 +19,8 @@ float sparkPos[NUM_SPARKS];
 float sparkVel[NUM_SPARKS];
 float sparkCol[NUM_SPARKS];
 
-// For mirroring strips, all the "special" stuff happens just in setup.  We
-// just addLeds multiple times, once for each strip
 void setup() {
-  // tell FastLED there's 30 NEOPIXEL leds on pin 10
-  FastLED.addLeds<NEOPIXEL, 10>(leds, NUM_LEDS);
+  FastLED.addLeds<LED_TYPE, LED_PIN1, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
 
   Serial.begin(115200); // Any baud rate should work
   Serial.println("Setup\n");
@@ -50,7 +52,7 @@ void flare() {
     brightness *= .997;
     //Serial.print(int(flarePos)); Serial.print("\n");
 
-    delay(0);
+    delay(10);
   }
 
   //Serial.print("flare end\n");
